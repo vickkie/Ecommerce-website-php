@@ -266,7 +266,7 @@
 									<a href='product.php?p=$pro_id'><div class='product-img'>
 										<img src='admin/admin/product_images/$pro_image' style='max-height: 170px;' alt=''>
 										<div class='product-label'>
-											
+											<span class='sale'>-10%</span>
 											<span class='new'>VIEW</span>
 										</div>
 									</div></a>

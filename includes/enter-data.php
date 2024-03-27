@@ -38,7 +38,7 @@
             $stmt = $dbh->query($sql);
 
             // insert the selected data into the database if it doesn't already exist
-            $insert_query = "INSERT INTO sales_orders (order_id, product_id, product_title, quantity, amt, product_code, product_price, prod_count, total_amt, f_name, user_id, contact, email, address, status,date) 
+            $insert_query = "INSERT INTO sales_orders (order_id, product_id, product_title, qty, amt, product_code, product_price, prod_count, total_amt, f_name, user_id, contact, email, address, status,date) 
                 SELECT order_products.order_id, order_products.product_id, products.product_title, order_products.qty, order_products.amt, products.product_code, products.product_price, orders_info.prod_count, orders_info.total_amt, orders_info.f_name, orders_info.user_id, orders_info.contact, orders_info.email, orders_info.address, orders_info.status, orders_info.date 
                 FROM order_products 
                 JOIN products ON order_products.product_id = products.product_id 

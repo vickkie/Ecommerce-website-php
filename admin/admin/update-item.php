@@ -13,7 +13,6 @@ if (empty($_SESSION['alogin']) || !in_array($_SESSION['position'], $allowedPosit
     exit(); // Stop further execution of the script
 }
 
-
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {

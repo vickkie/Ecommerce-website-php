@@ -8,7 +8,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
     if (isset($_REQUEST['order_id'])) {
-        $orderid = ($_GET['order_id']);
+        $orderid = intval($_GET['order_id']);
     }
 
     // Fetch order details from the database
@@ -41,7 +41,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 
     // Order Information
     $html .= '<h3>Order Details</h3>';
-    $html .= '<p><strong>Order ID: </strong>'.$orderid.'</p>';
     $html .= '<p><strong>Customer Name:</strong> ' . strtoupper($result->f_name) . '</p>';
     $html .= '<p><strong>Phone:</strong> 0' . htmlentities($result->contact) . '</p>';
     $html .= '<p><strong>County:</strong> ' . strtoupper($result->city) . '</p>';
@@ -50,7 +49,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
     // Product Details
     $html .= '<h3>Product Details</h3>';
-    $html .= '<table style="width: 90%;" border="1" cellpadding="5" cellspacing="0">';
+    $html .= '<table style="width: 80%;" border="1" cellpadding="5" cellspacing="0">';
     $html .= '<tr><th>#</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Total</th></tr>';
 
     $sql = "SELECT * FROM sales_orders WHERE order_id = :orderid";
@@ -65,9 +64,9 @@ if (strlen($_SESSION['alogin']) == 0) {
         $html .= '<tr>';
         $html .= '<td>' . $cnt . '</td>';
         $html .= '<td>' . $result->product_title . '</td>';
-        $html .= '<td>' . $result->quantity . '</td>';
+        $html .= '<td>' . $result->qty . '</td>';
         $html .= '<td>' . $result->product_price . '</td>';
-        $total = $result->quantity * $result->product_price;
+        $total = $result->qty * $result->product_price;
         $html .= '<td>' . $total . '</td>';
         $html .= '</tr>';
         $grandTotal += $total;
@@ -78,33 +77,14 @@ if (strlen($_SESSION['alogin']) == 0) {
     $html .= '<br>';
 
     // Grand Total
-    $html .= '<p><strong>TOTAL AMOUNT: ' . CURRENCY . ' ' . number_format($grandTotal, 2) . '</strong></p>';
+    $html .= '<p><strong>TOTAL DUE: ' . CURRENCY . ' ' . number_format($grandTotal, 2) . '</strong></p>';
 
 
 
 // Stamp (Payment Type)
-$html .= '<div style="text-align: center; margin-top: 20px; background-color: #25d366; color: #000; padding: 10px; display: inline-block; border-radius: 15px; transform: rotate(-10deg);">';
-$sql2 = "SELECT * FROM orders_info WHERE order_id = :orderid";
-    $query2 = $dbh->prepare($sql2);
-    $query2->bindParam(':orderid', $orderid, PDO::PARAM_STR);
-    $query2->execute();
-    $results2 = $query2->fetch(PDO::FETCH_OBJ);
-
-if($results2) {
-$html .= 'PAYMENT TYPE: '. (strtoupper($results2->payment));
+$html .= '<div style="text-align: center; margin-top: 20px; background-color: #ff9b00; color: #000; padding: 10px; display: inline-block; border-radius: 15px; transform: rotate(-10deg);">';
+$html .= 'PAYMENT TYPE: ' . PAYMENT_TYPE;
 $html .= '</div>';
-$html .= '<br>';
-}
-   //Thanks 
-    $html .= '<table style="width: 100%;">';
-    $html .= '<tr>';
-    $html .= '<td style="width: 50%;text-align:center;">';
-    $html .= '<i style="color:blue">'. COMPANY_THANKS . '</i>';
-    $html .= '</td>';
-    $html .= '</tr>';
-    $html .= '</table>';
-    $html .= '<br>';
-
 
 
     // Footer

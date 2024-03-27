@@ -94,7 +94,7 @@ if (isset($_GET["st"])) {
 					</html>
 
 				<?php
-			
+			}
 		}else{
 			header("location:index.php");
 		}

@@ -12,17 +12,6 @@ if (empty($_SESSION['alogin']) || !in_array($_SESSION['position'], $allowedPosit
     exit(); // Stop further execution of the script
 }
 
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
-
 if(strlen($_SESSION['alogin'])==0)
 {	
 header('location:index.php');
@@ -107,133 +96,15 @@ foreach ($results as $row) {
                 <a>Sales Report
                 </a>
               </h2>
-
-  <div class="x_content">
-  <ul class="nav nav-tabs bar_tabs " id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="profile-tab" href="sales-report.php">Sales report</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="contact-tab" href="sales-graphs.php">Sales Graph</a>
-    </li>
-   
-  </ul>
-</div>
               <!-- Zero Configuration Table -->
               <div class="panel panel-default">
                 <div class="panel-heading">Sales
                 </div>
-       <div class="panel-body">
-                  <?php if($error){?>
-                  <div class="errorWrap" id="msgshow">
-                    <?php echo htmlentities($error); ?> 
-                  </div>
-                  <?php } 
-else if($msg){?>
-                  <div class="succWrap" id="msgshow">
-                    <?php echo htmlentities($msg); ?> 
-                  </div>
-                  <?php }?>
-                  <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-                    <thead>
-                      <tr>
-                        <th>#
-                        </th>
-                        <th>Name
-                        </th>
-                        <th>OrderId
-                        </th>
-                        <th>Transaction ID
-                        </th>
-                        <th>Email
-                        </th>
-                         <th>Status
-                        </th>
-                        <th>Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php $sql = "SELECT * from  suppliers WHERE status='Unapproved' ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{       ?>  
-                      <tr>
-                        <td>
-                          <?php echo htmlentities($cnt);?>
-                        </td>
-                        <td>
-                          <?php echo htmlentities($result->name);?> 
-                          <?php // echo htmlentities($result->lname);?>
-                        </td>
-                        <td>
-                          <?php echo htmlentities($result->mobile);?>
-                        </td>
-                        <td>
-                          <?php echo htmlentities($result->supplier_person);?>
-                        </td>
-                        <td>
-                          <?php echo htmlentities($result->address);?>
-                        </td>
-                        <td>
-  <?php
-  $status = htmlentities($result->status);
-  $statusClass = '';
-
-  if ($status == 'Unapproved') {
-    $statusClass = 'text-danger';
-  } 
-  elseif ($status == 'Approved') {
-    $statusClass = 'text-success';
-  }
-
-  echo '<b class="' . $statusClass . '">' . $status . '</b>';
-  ?>
-</td>
-<td>
-                        <a href="new-supplier.php?confirmid=<?php echo $result->supplier_id;?>" onhover="approve"   onclick="return confirm('Do you want to approve supplier');">
-                            <i class="fa fa-check" style="color:blue">
-                            </i>
-                          </a>                        
-<br>
-                          <a href="new-supplier.php?del=<?php echo $result->supplier_id;?>" onclick="return confirm('Do you want to delete supplier');">
-                            <i class="fa fa-trash" style="color:red">
-                            </i>
-                          </a>
-                          
-  
-  <script>
-function unapproveHover(element) {
-  element.style.color = "red"; // Example: Change the color to red on hover
-}
-
-// Alternatively, you can use CSS to handle the hover effect instead of JavaScript:
-/*
-<style>
-a:hover i {
-  color: red;
-}
-</style>
-*/
-</script>
-                        </td>
-
-                      </tr>
-                      <?php $cnt=$cnt+1; }} ?>
-                    </tbody>
-                  </table>
+       
+                
                 </div>
               </div>
-
-
-                
-              
-              <div><center><span  style="width:20%;"><?php  echo COMPANY_LOGOS ?></span></center></div>
+              <div><center><?php  echo COMPANY_LOGOS ?></center></div>
             </div>
           </div>
         </div>

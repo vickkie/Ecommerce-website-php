@@ -1,12 +1,14 @@
+
+
+
+
 <?php
-error_reporting(0);
-include "../includes/config.php";
+
 echo '
 
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" href="<?php echo COMPANY_TOP_LOGO;?>">
 	<title>403 Forbidden</title>
 	<!-- Bootstrap 3.3.6 -->
   	<link rel="stylesheet" href="<?= base_url() ?>public/bootstrap/css/bootstrap.min.css">
@@ -26,7 +28,7 @@ echo '
 		}
 
 		.container {
-		  background: black;
+		  background: #2f2f2f;
 		  display: flex;
 		  align-items: center;
 		  justify-content: center;

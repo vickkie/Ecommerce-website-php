@@ -7,24 +7,12 @@ if(strlen($_SESSION['alogin']) == 0 || $_SESSION['position'] !== 'Approve') {
     header('location:errors/access-denied.php');
     exit(); // Stop further execution of the script
 }
-
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
-
-
+else{
   if (isset($_SESSION['position'])) {
         $position = $_SESSION['position'];
          $username = $_SESSION['alogin'];
 
-
+}
 
 
 ?>
@@ -58,8 +46,6 @@ $_SESSION['LAST_ACTIVITY'] = time();
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Admin Stye -->
     <link rel="stylesheet" href="css/style.css">
-    
-    
   </head>
   <body>
     <?php include('request/header.php');?>
@@ -69,8 +55,8 @@ $_SESSION['LAST_ACTIVITY'] = time();
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12"><center class="pull-right"><img src="product_images/promokings.jpg" /></center>
-              <h3 class="page-title"><?php echo (strtoupper($username)) ?> | Welcome To Our Company &nbsp<span><a href="newbie-register.php">Register here</a></span>
-              </h3>
+              <h2 class="page-title"><?php echo (strtoupper($username)) ?> | Welcome To Our Company &nbsp<span><a href="newbie-register.php">Register here</a></span>
+              </h2>
          
            <div class="row">
                 <div class="col-md-12">
@@ -86,16 +72,26 @@ $_SESSION['LAST_ACTIVITY'] = time();
     <div class="carousel-inner">
 
          <div class="item">
-        <img src="img/newbies/hotdeal3.jpg" style="width:100%;">
+        <img src="img/hotdeal22.jpg" style="width:100%;">
         
       </div>
         <div class="item">
-        <img src="img/newbies/hotdeal13.jpg" alt="New York" style="width:100%;">
+        <img src="img/hotdeal13.jpg" alt="New York" style="width:100%;">
         
       </div>
 
       <div class="item active">
-        <img src="img/newbies/hotdeal12.jpg" alt="Los Angeles" style="width:100%;">
+        <img src="img/hotdeal12.jpg" alt="Los Angeles" style="width:100%;">
+        
+      </div>
+
+      
+
+     
+    
+   
+      <div class="item">
+        <img src="img/hotdeal3.jpg" alt="New York" style="width:100%;">
         
       </div>
      

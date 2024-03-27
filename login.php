@@ -14,16 +14,11 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
     $row = mysqli_fetch_array($run_query);
 		$_SESSION["uid"] = $row["user_id"];
 		$_SESSION["name"] = $row["first_name"];
-		$_SESSION["email"] = $row["email"];
 		$ip_add = getenv("REMOTE_ADDR");
 		//created a cookie in login_form.php page so if that cookie is available means user is not login
         
 	//if user record is available in database then $count will be equal to 1
 	if($count == 1){
-
-		$insert_query = "INSERT INTO customer_login_tracking (user_id, login_time,email) VALUES ('$row[user_id]', NOW(),'$row[email]')";
-        mysqli_query($con, $insert_query);
-
 		   	
 			if (isset($_COOKIE["product_list"])) {
 				$p_list = stripcslashes($_COOKIE["product_list"]);

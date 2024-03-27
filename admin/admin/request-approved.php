@@ -70,7 +70,6 @@ $msg="Supplier Approved Sucessfully";
     <link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
     <!-- Admin Stye -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/uzi.css">
     <style>
       .errorWrap {
         padding: 10px;
@@ -98,19 +97,8 @@ $msg="Supplier Approved Sucessfully";
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <h2 class="page-title">Approved New Register
+              <h2 class="page-title">Unapproved New Staff
               </h2>
-              <div class="x_content">
-  <ul class="nav nav-tabs bar_tabs " id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link " id="profile-tab" href="request-user.php">Unapproved</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" id="contact-tab" href="request-approved.php">Approved</a>
-    </li>
-  </ul>
-</div>
-
               <!-- Zero Configuration Table -->
               <div class="panel panel-default">
                 <div class="panel-heading">List Staff
@@ -186,7 +174,7 @@ $msg="Supplier Approved Sucessfully";
                    $statusClass = 'text-success';
                    }
 
-                  echo '<b class="' . $statusClass . '">' . $status . 'd</b>';
+                  echo '<b class="' . $statusClass . '">' . $status . '</b>';
                   ?>
                  </td>
                   <td>

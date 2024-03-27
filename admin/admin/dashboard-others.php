@@ -6,24 +6,12 @@ if(strlen($_SESSION['alogin'])==0)
 { 
 header('location:errors/access-denied.php');
 }
-
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
-
-
+else{
   if (isset($_SESSION['position'])) {
         $position = $_SESSION['position'];
          $username = $_SESSION['alogin'];
 
-
+}
 
 
 ?>

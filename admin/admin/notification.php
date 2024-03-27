@@ -85,9 +85,6 @@ if (strlen($_SESSION['alogin']) == 0) {
     <link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
     <!-- Admin Stye -->
     <link rel="stylesheet" href="css/style.css">
-
-    <link rel="stylesheet" href="css/adminlte.css">
-    <link rel="stylesheet" href="css/adminlte.min.css">
     <style>
       .errorWrap {
         padding: 10px;

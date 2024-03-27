@@ -58,14 +58,14 @@ if (isset($_SESSION["uid"])) {
 <?php 
 if (isset($_SESSION["uid"])) {
   if (isset($_REQUEST['order_id'])) {
-    $orderid = ($_GET['order_id']);
+    $orderid = intval($_GET['order_id']);
 
     echo '
     <section class="section">
       <div class="container-checkout">
         <div class="col-50">
           <div class="row-checkout">
-            <h3 class="history">TRACKING ORDER NO:<span style="color:blue"> ' . $orderid . '  </span>:
+            <h3 class="history">ORDERS NO: ' . $orderid . '  PROGRESS
               <span class="price" style="color:black">
                 <i class="fa fa-shopping-cart"></i>
               </span>
@@ -137,14 +137,14 @@ if (isset($_SESSION["uid"])) {
           $userid = $_SESSION["uid"];
 
           if (isset($_REQUEST['order_id'])) {
-            $orderid = ($_GET['order_id']);
+            $orderid = intval($_GET['order_id']);
 
             $sql2 = "SELECT * FROM status_history
                      JOIN sales_orders ON sales_orders.order_id = status_history.order_id
                      WHERE user_id = :userid AND sales_orders.order_id = :orderid";
             $query2 = $dbh->prepare($sql2);
             $query2->bindParam(':userid', $userid, PDO::PARAM_INT);
-            $query2->bindParam(':orderid', $orderid, PDO::PARAM_STR);
+            $query2->bindParam(':orderid', $orderid, PDO::PARAM_INT);
             $query2->execute();
             $results2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 
@@ -189,7 +189,7 @@ if (isset($_SESSION["uid"])) {
                   $orderID = $result['order_id'];
                   $sql3 = "SELECT order_date FROM sales_orders WHERE order_id = :orderID";
                   $query3 = $dbh->prepare($sql3);
-                  $query3->bindParam(':orderID', $orderID, PDO::PARAM_STR);
+                  $query3->bindParam(':orderID', $orderID, PDO::PARAM_INT);
                   $query3->execute();
                   $orderResult = $query3->fetch(PDO::FETCH_ASSOC);
 
@@ -262,7 +262,7 @@ if (isset($_SESSION["uid"])) {
                   $orderID = $result['order_id'];
                   $sql3 = "SELECT 'date' FROM sales_orders WHERE order_id = :orderID";
                   $query3 = $dbh->prepare($sql3);
-                  $query3->bindParam(':orderID', $orderID, PDO::PARAM_STR);
+                  $query3->bindParam(':orderID', $orderID, PDO::PARAM_INT);
                   $query3->execute();
                   $orderResult = $query3->fetch(PDO::FETCH_ASSOC);
 

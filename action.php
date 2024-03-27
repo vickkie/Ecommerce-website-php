@@ -1,6 +1,5 @@
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="js/sweetalert.min.js"></script>
 
 <script>
 function added() {
@@ -370,7 +369,7 @@ if (isset($_POST["Common"])) {
             
             echo '<div class="cart-summary">
 				    <small class="qty">'.$n.' Item(s) selected</small>
-				    <h5>Total : Kshs '.$total_price.'.00</h5>
+				    <h5>Kshs '.$total_price.'.00</h5>
 				</div>'
             ?>
 				
@@ -464,9 +463,9 @@ if (isset($_POST["Common"])) {
 					<tr>
 						<td><a href="store.php" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
 						<td colspan="2" class="hidden-xs"></td>
-						<td class="hidden-xs text-center"><b class="net_total"></b></td>
+						<td class="hidden-xs text-center"><b class="net_total" ></b></td>
 						<div id="issessionset"></div>
-             <td>
+                        <td>
 							
 							';
 

@@ -218,24 +218,6 @@ if (isset($_SESSION["uid"]) == 0) {
 }
 
     /* ... */
-
-  input[type=text] {
-    border-radius: 15px;
-    margin:0,auto;
-  }
-
- label {
-  margin-right: 10px;
-}
-.centered {
-  text-align: center;
-}
-.center-value {
-  text-align: center;
-}
-
-
-
   </style>
 </head>
 <body>
@@ -253,15 +235,14 @@ if (isset($_SESSION["uid"]) == 0) {
         $profilePicture = $row["profile_picture"];
 
         // Display customer details
-
   echo '
 <div class="col-70">
   <div class="container-checkout">
     <form id="update_form" method="POST" class="was-validated" enctype="multipart/form-data">
       <div class="row-checkout">
-        <div class="col-50" >
+        <div class="col-50">
           <h3>Your Address/Details</h3>
-          <label for="fname" ><i class="fa fa-user"></i> First Name *</label>
+          <label for="fname"><i class="fa fa-user"></i> First Name *</label>
           <input type="text" id="fname" class="form-control" name="firstname" pattern="^[a-zA-Z ]+$" value="' . $row["first_name"] . '" readonly>
           <label for="fname"><i class="fa fa-user"></i> Last Name *</label>
           <input type="text" id="lname" class="form-control" name="lastname" pattern="^[a-zA-Z ]+$" value=" ' . $row["last_name"] . '" readonly>
@@ -283,15 +264,15 @@ if (isset($_SESSION["uid"]) == 0) {
           <input type="submit" name="submit" value="Update" class="checkout-btn" style="display: none;">
         </div>
         <div class="col-50">
-          <h3 class="centered" >Profile Picture</h3>
+          <h3 class=""></h3>
           <br>
-          <div class="pull-right profile-picture-box" style="width: 500px; height: 500px; overflow: hidden; ">
-            <img src="img/customers/' . $profilePicture . '" alt="Profile Picture" onerror="this.onerror=null; this.src=\'img/default.png\';" style="max-width: 50%; height: auto;border-radius:15px;"><br><br>
-            <label class="col-sm-8 control-label" id="change" style="display: none;">Change Picture
+          <div class="pull-right profile-picture-box" style="width: 500px; height: 500px; overflow: hidden;">
+            <img src="img/customers/' . $profilePicture . '" alt="Profile Picture" onerror="this.onerror=null; this.src=\'img/default.png\';" style="max-width: 50%; height: auto;"><br><br>
+            <label class="col-sm-8 control-label">Change Picture
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-8">
-            <input type="file" id="image" name="image" class="form-control" value="Select Image File" readonly style="display: none;">
+            <input type="file" id="image" name="image" class="form-control" value="Select Image File" readonly>
           </div>
           </div>
      
@@ -315,8 +296,6 @@ if (isset($_SESSION["uid"]) == 0) {
             document.getElementById("Number").readOnly = false;
             document.getElementById("image").readOnly = false;
             document.getElementById("edit-btn").style.display = "none";
-            document.getElementById("image").style.display = "block";
-            document.getElementById("change").style.display = "block";
             document.getElementsByName("submit")[0].style.display = "block";
           }
         </script>';

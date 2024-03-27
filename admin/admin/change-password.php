@@ -6,19 +6,6 @@ error_reporting(0);
 
 include('includes/config.php');
 
-
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
-
-
 if(strlen($_SESSION['alogin'])==0)
 
 	{	
@@ -37,14 +24,9 @@ if(isset($_POST['submit']))
 
 $username=$_SESSION['alogin'];
 
-$pass=($_POST['password']);
-$password=md5($pass);
+$password=($_POST['password']);
 
-
-
-$newpass=($_POST['newpassword']);
-
-$newpassword=md5($newpass);
+$newpassword=($_POST['newpassword']);
 
 
 

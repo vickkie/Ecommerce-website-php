@@ -71,7 +71,6 @@ include('includes/config.php');
   <script src="js/main.js"></script>
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="js/sweetalert.min.js"></script>
 
 
 

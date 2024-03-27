@@ -8,7 +8,7 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 
-$allowedPositions = array( 'admin', 'inventory manager' ,'superadmin');
+$allowedPositions = array( 'admin', 'inventory-manager' ,'superadmin');
 
 // Check if the user is logged in and has an allowed position
 if (empty($_SESSION['alogin']) || !in_array($_SESSION['position'], $allowedPositions)) {
@@ -16,17 +16,6 @@ if (empty($_SESSION['alogin']) || !in_array($_SESSION['position'], $allowedPosit
     header('location:errors/access-denied.php');
     exit(); // Stop further execution of the script
 }
-
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
 
 if(strlen($_SESSION['alogin'])==0)
 { 
@@ -66,8 +55,8 @@ if ($picture_type == "image/jpeg" || $picture_type == "image/jpg" || $picture_ty
 
     // Resize the image
     list($width, $height) = getimagesize($upload_path);
-    $new_width = 600;
-    $new_height = 600;
+    $new_width = 500;
+    $new_height = 500;
     $resized_image = imagecreatetruecolor($new_width, $new_height);
 
     if ($picture_type == "image/jpeg" || $picture_type == "image/jpg") {
@@ -82,7 +71,7 @@ if ($picture_type == "image/jpeg" || $picture_type == "image/jpg" || $picture_ty
 
     // Save the resized image
     if ($picture_type == "image/jpeg" || $picture_type == "image/jpg") {
-      imagejpeg($resized_image, $upload_path, 100);
+      imagejpeg($resized_image, $upload_path, 90);
     } elseif ($picture_type == "image/png") {
       imagepng($resized_image, $upload_path, 9);
     } elseif ($picture_type == "image/gif") {
@@ -166,7 +155,6 @@ if ($count == 0) {
     <link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
     <!-- Admin Stye -->
     <link rel="stylesheet" href="css/style.css">
-     
     <script type= "text/javascript" src="../vendor/countries.js">
     </script>
     <style>
@@ -198,16 +186,6 @@ if ($count == 0) {
             <div class="col-md-12">
               <h2 class="page-title">Add Product
               </h2>
-   <div class="x_content">
-  <ul class="nav nav-tabs bar_tabs " id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link" id="profile-tab" href="manage-items.php">Products</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" id="contact-tab" href="add-items.php">Add product</a>
-    </li>
-  </ul>
-</div>
               <div class="row">
                 <div class="col-md-12">
                   <div class="panel panel-default">

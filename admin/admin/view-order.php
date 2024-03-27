@@ -20,7 +20,7 @@ header('location:index.php');
 else{
 if(isset($_REQUEST['order_id']))
 {
-$orderid=($_GET['order_id']);
+$orderid=intval($_GET['order_id']);
 }
  // Check if success parameter is present and display success message if true
     if (isset($_GET['success']) && $_GET['success'] == 'true') {
@@ -136,10 +136,7 @@ $orderid=($_GET['order_id']);
                 <div class="col-md-3 h5">
                
                <div class="text-right">
-        <a href="generate-pdf.php?order_id=<?php echo $orderid; ?>" class="btn btn-danger" >Generate Invoice</a>
-         <a href="download-order.php?order_id=<?php echo $orderid; ?>" onclick="return confirm('Do you want to download this order?');">
-        <span class="btn btn-success" style="color: white;">Download</span>
-    </a>
+    <a href="generate-pdf.php?order_id=<?php echo $orderid; ?>" class="btn btn-danger" >Generate Invoice</a>
 </div>	 </div>
               </div>
               <!-- Zero Configuration Table -->
@@ -232,7 +229,7 @@ foreach($results as $result)
                       
                         </td>
                         <td>
-                          <?php echo htmlentities($result->quantity);?>
+                          <?php echo htmlentities($result->qty);?>
                         </td>
                         <td>
                           <?php echo htmlentities($result->product_price);?>

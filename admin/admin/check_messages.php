@@ -3,6 +3,9 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 
+if (strlen($_SESSION['alogin']) == 0) {
+    header('location:index.php');
+} else {
     if (isset($_GET['lastCheckedTimestamp'])) {
         $lastCheckedTimestamp = $_GET['lastCheckedTimestamp']; // Make sure to validate and sanitize this input
 
@@ -30,5 +33,5 @@ include('includes/config.php');
         echo json_encode($response);
         exit();
     }
-
+}
 ?>

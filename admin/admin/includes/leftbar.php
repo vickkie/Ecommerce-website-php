@@ -1,3 +1,4 @@
+        
 <?php
 session_start(); 
 include('includes/config.php');
@@ -6,32 +7,31 @@ if (isset($_SESSION['alogin'])) {
     if (isset($_SESSION['position'])) {
         $position = $_SESSION['position'];
 }
-
-
-        if ($position == "admin" || $position == "superadmin")
+if ($position == "admin" || $position == "superadmin")
 {
+
 
 
     echo'
 <nav class="ts-sidebar">
 <ul class="ts-sidebar-menu">
- <li class="ts-label">
-    <li>
     <li class="ts-label">Promokings |'.$position.' </li>
     <li>
         <a href="dashboard-new.php">
-            <i class="fa fa-home"></i> Dashboard
+            <i class="fa fa-dashboard"></i> Dashboard
         </a>
     </li>
 
 <li class="active">
-        <a href="manage-orders.php">
+        <a href="#">
             <i class="fa fa-shopping-cart"></i> Orders
         </a>
         <ul>
             <li>
-        <a href="manage-orders.php"><i class="fa fa-cart-arrow-down"></i> Orders</a>
-            </li>
+        <a href="manage-orders.php">
+            <i class="fa fa-cart-arrow-down"></i> Orders
+        </a>
+    </li>
 
             <li>
                 <a href="manage-invoices.php"><i class="fa fa-cogs"></i>Manage invoices</a>
@@ -42,15 +42,12 @@ if (isset($_SESSION['alogin'])) {
             <li>
                 <a href="assign-driver.php"><i class="fa fa-cogs"></i>Assign Orders</a>
             </li>
-             <li>
-                <a href="driver-overview.php"><i class="fa fa-cogs"></i>Order Assignment</a>
-            </li>
         </ul>
     </li>
 
     
     
-    <li>
+    <li class="active">
         <a href="#">
             <i class="fa fa-dedent"></i> Products
         </a>
@@ -63,9 +60,8 @@ if (isset($_SESSION['alogin'])) {
             </li>
         </ul>
     </li>
-
     <li class="active">
-        <a href="manage-category.php">
+        <a href="#">
             <i class="fa fa-th-list"></i> Categories
         </a>
         <ul>
@@ -89,7 +85,7 @@ if (isset($_SESSION['alogin'])) {
         </ul>
     </li>
     <li class="active">
-        <a href="manage-driver.php">
+        <a href="#">
             <i class="fa fa-car"></i> Drivers
         </a>
         <ul>
@@ -105,7 +101,7 @@ if (isset($_SESSION['alogin'])) {
         </ul>
     </li>
     <li class="active">
-        <a href="manage-supplier.php">
+        <a href="#">
             <i class="fa fa-cart-plus"></i> Suppliers
         </a>
         <ul>
@@ -122,7 +118,7 @@ if (isset($_SESSION['alogin'])) {
         </ul>
     </li>
     <li>
-        <a href="manage-user.php">
+        <a href="#">
             <i class="fa fa-user-secret"></i> System users
         </a>
         <ul>
@@ -159,9 +155,9 @@ if (isset($_SESSION['alogin'])) {
 
     </li>
 
-       <li>
-        <a href="request-user.php">
-            <i class="fa fa-plus-circle" aria-hidden="true"></i> New Staff
+    <li>
+        <a href="#">
+            <i class="fa fa-plus-circle"></i> New Staff
         </a>
         <ul>
             <li class="active">
@@ -192,7 +188,7 @@ if (isset($_SESSION['alogin'])) {
         </a>
     </li>
     <li class="active">
-        <a href="logout.php">
+        <a href="log-out.php">
             <i class="fa fa-sign-out"></i> Log out
         </a>
     </li>
@@ -205,18 +201,16 @@ if (isset($_SESSION['alogin'])) {
 
 }
 
-    if ($position == "inventory manager") 
+if ($position == "inventory manager") 
 {
 
     echo'
 <nav class="ts-sidebar">
 <ul class="ts-sidebar-menu">
- <li class="ts-label">
-    <li>
-    <li class="ts-label">Promokings |'.$position.' </li>
+    <li class="ts-label">Promokings </li>
     <li>
         <a href="dashboard-inventory.php">
-            <i class="fa fa-home"></i> Dashboard
+            <i class="fa fa-dashboard"></i> Dashboard
         </a>
     </li>
 
@@ -279,13 +273,8 @@ if (isset($_SESSION['alogin'])) {
             <i class="fa fa-inbox"></i> Messages
         </a>
     </li>
-       <li class="active">
-        <a href="to-do.php">
-            <i class="fa fa-envelope"></i> Tasks
-        </a>
-    </li>
     <li class="active">
-        <a href="logout.php">
+        <a href="log-out.php">
             <i class="fa fa-sign-out"></i> Log out
         </a>
     </li>
@@ -303,12 +292,10 @@ if ($position == "driver")
     echo'
 <nav class="ts-sidebar">
 <ul class="ts-sidebar-menu">
- <li class="ts-label">
+    <li class="ts-label">Promokings </li>
     <li>
-    <li class="ts-label">Promokings |'.$position.' </li>
-    <li>
-        <a href="dashboard-driver.php">
-            <i class="fa fa-home"></i> Dashboard
+        <a href="dashboard-others.php">
+            <i class="fa fa-dashboard"></i> Dashboard
         </a>
     </li>
 
@@ -319,11 +306,8 @@ if ($position == "driver")
     
     <li class="active">
         <a href="assigned-orders.php">
-            <i class="fa fa-cart-arrow-down"></i>Invoices
+            <i class="fa fa-truck"></i> Orders
         </a>
-    </li>
-    <li>
-     <a href="driver-orders.php"><i class="fa fa-truck"></i>Manage Orders</a>
     </li>
     
 
@@ -338,7 +322,7 @@ if ($position == "driver")
         </a>
     </li>
         <li class="active">
-        <a href="logout.php">
+        <a href="log-out.php">
             <i class="fa fa-sign-out"></i> Log out
         </a>
     </li>
@@ -357,10 +341,10 @@ if ($position == "finance manager")
     echo'
 <nav class="ts-sidebar">
 <ul class="ts-sidebar-menu">
-    <li class="ts-label">Promokings |'.$position.' </li>
+    <li class="ts-label">Promokings </li>
     <li>
         <a href="dashboard-finance.php">
-            <i class="fa fa-home"></i> Dashboard
+            <i class="fa fa-dashboard"></i> Dashboard
         </a>
     </li>
 
@@ -369,24 +353,25 @@ if ($position == "finance manager")
     
    
     
-
-     <li>
+    <li class="active">
+        <a href="#">
+            <i class="fa fa-area-chart"></i> Sales
+         </a>
+    <ul>
+        <li>
         <a href="sales-report.php">
 
         <i class="fa fa-bar-chart"></i> Sales reports
         </a>
-    </li>
-    <li>
+        </li>
+      <li>
         <a href="sales-graphs.php">
             <i class="  fa fa-line-chart"></i> Sales Graphs
         </a>
+        </li>
+    </ul>
+
     </li>
-       <li>
-        <a href="sales-graphs.php">
-            <i class="  fa fa-money"></i> Payments
-        </a>
-    </li>
-    
     <li class="active">
         <a href="notification.php">
             <i class="fa fa-bell"></i> Notification
@@ -398,7 +383,7 @@ if ($position == "finance manager")
         </a>
     </li>
     <li class="active">
-        <a href="logout.php">
+        <a href="log-out.php">
             <i class="fa fa-sign-out"></i> Log out
         </a>
     </li>
@@ -417,10 +402,10 @@ if ($position == "Approved")
     echo'
 <nav class="ts-sidebar">
 <ul class="ts-sidebar-menu">
-    <li class="ts-label">Promokings || New user
+    <li class="ts-label">Promokings </li>
     <li>
         <a href="dashboard-finance.php">
-            <i class="fa fa-home"></i> Dashboard
+            <i class="fa fa-dashboard"></i> Dashboard
         </a>
     </li>
 
@@ -430,7 +415,7 @@ if ($position == "Approved")
         </a>
     </li>
     <li class="active">
-        <a href="logout.php">
+        <a href="log-out.php">
             <i class="fa fa-sign-out"></i> Log out
         </a>
     </li>
@@ -446,4 +431,3 @@ if ($position == "Approved")
 
 }
 ?>
-

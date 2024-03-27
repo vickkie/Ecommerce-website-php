@@ -143,7 +143,6 @@ echo "An error occurred: " . $e->getMessage();
                             ?>
                          <div class="row">
                          <div class="col-md-6">
-                            Search &nbsp<span class="fa fa-search"></span>
                          <input type="text" name="receiver" id="receiver" value="" required style="padding: 8px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 10px;" onkeyup="showUsernames(this.value)">
                         </div>
                          <div class="col-md-6"><b>Suggestions</b>
@@ -163,14 +162,14 @@ echo "An error occurred: " . $e->getMessage();
                       <div class="card-header">
                         <h3 class="card-title">Messages</h3>
                       </div>
-                      <div class="card-body"  style="background-image: url('img/messagingback.gif'); background-size: cover;">
+                      <div class="card-body">
                         <!-- Conversations are loaded here -->
   <div class="direct-chat-messages">
 <?php
 if (isset($_SESSION['alogin'])) {
     $username = $_SESSION['alogin'];
 
-    $sql = "SELECT * FROM message WHERE sender_name = :username OR receiver_name = :username ORDER BY dates asc";
+    $sql = "SELECT * FROM message WHERE sender_name = :username OR receiver_name = :username ORDER BY dates DESC";
     $query = $dbh->prepare($sql);
     $query->bindParam(':username', $username, PDO::PARAM_STR);
     $query->execute();
@@ -205,21 +204,19 @@ if (isset($_SESSION['alogin'])) {
 
             if ($senderName === $username) {
                 // Display sender's message on sender's side
-                echo '<div class="direct-chat-msg right">
+                echo '<div class="direct-chat-msg">
                         <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-timestamp float-right" style="color:red">' . $formattedDate . '</span><br>
-                            <span class="direct-chat-name float-right">' . $receiverName . '</span>&nbsp
-                            
+                            <span class="direct-chat-name float-right">' . $senderName . '</span>&nbsp
+                            <span class="direct-chat-timestamp float-right" style="color:red">' . $formattedDate . '</span>
                         </div>
                         <div class="direct-chat-text float-right">' . $message . '</div>
                     </div>';
             } else {
                 // Display receiver's reply on receiver's side
-                echo '<div class="direct-chat-msg left" >
+                echo '<div class="direct-chat-msg right">
                         <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-timestamp float-left" style="color:red">' . $formattedDate . '</span><br>
                             <span class="direct-chat-name float-left" style="font-size:14px;font-size:16px">' . $senderName . '</span>&nbsp&nbsp&nbsp 
-                            
+                            <span class="direct-chat-timestamp float-left" style="color:red">' . $formattedDate . '</span>
                         </div>
                         <div class="direct-chat-text float-left">' . $message . '</div>
                     </div>';
@@ -245,9 +242,9 @@ if (isset($_SESSION['alogin'])) {
                          <div class="card-footer">
                         <div class="col-sm">
                             <div class="input-group">
-                             <input type="text" style="border-radius: 15px;" id="desc" name="desc" placeholder="Type Message ..." class="form-control">
+                             <input type="text" id="desc" name="desc" placeholder="Type Message ..." class="form-control">
                              <span class="input-group-append">
-                            &nbsp <button id="sendMessageButton" class="btn btn-primary" name="submit" type="submit" style="border-radius: 15px;" class="form-control" >SEND</button>
+                             <button id="sendMessageButton" class="btn btn-primary" name="submit" type="submit"  class="form-control" >SEND</button>
                              </span>
                          </div>
                        </div>
@@ -295,7 +292,7 @@ if (isset($_SESSION['alogin'])) {
     }
 
     // Set the reload interval
-    setInterval(reloadPage, 105000); // Adjust the interval time (in milliseconds) as needed
+    setInterval(reloadPage, 35000); // Adjust the interval time (in milliseconds) as needed
 </script>
 
 

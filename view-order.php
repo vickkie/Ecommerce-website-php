@@ -8,7 +8,7 @@ if (isset($_SESSION["uid"])) {
   $userid = $_SESSION["uid"];
 
  if (isset($_REQUEST['order_id'])) {
-  $orderid = ($_GET['order_id']);
+  $orderid = intval($_GET['order_id']);
 
 echo "<link rel='stylesheet' type='text/css' href='css/themebyuzi.css'>";
 
@@ -43,7 +43,7 @@ echo "<section class='section'>
 
   $query2 = $dbh->prepare($sql2);
   $query2->bindParam(':userid', $userid, PDO::PARAM_INT);
-  $query2->bindParam(':orderid', $orderid, PDO::PARAM_STR);
+  $query2->bindParam(':orderid', $orderid, PDO::PARAM_INT);
   $query2->execute();
   $results2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 
@@ -74,7 +74,7 @@ echo "<section class='section'>
       <td>" . $i++ . "</td>
       <td><img src='admin/admin/product_images/" . htmlentities($row['product_image']) . "' alt='Product Image' style='width: 60px; height: 60px;'></td>
       <td>" . htmlentities($row['product_title']) . "</td>
-      <td>" . htmlentities($row['quantity']) . "</td>
+      <td>" . htmlentities($row['qty']) . "</td>
       <td>" . htmlentities($row['product_price']) . "</td>
       
     </tr>";

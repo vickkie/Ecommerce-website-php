@@ -1,6 +1,6 @@
 <?php
 if (isset($_REQUEST['order_id'])) {
-    $orderid = ($_GET['order_id']);
+    $orderid = intval($_GET['order_id']);
 
     // Generate the file path
     $filename = 'order_' . $orderid . '.pdf';

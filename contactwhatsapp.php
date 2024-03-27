@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<a href="https://wa.me/+254110356125/?text=Hello,%20I%20would%20like%20to%20place%20a%20branding%20order." class="whatsapp" target="_blank"><i class="fa fa-whatsapp"></i> Chat with us</a>
+<a href="https://wa.me/+254110356125/?text=Hello,%20I%20would%20like%20to%20place%20a%20branding%20order." class="whatsapp" target="_blank"><i class="fa fa-whatsapp"></i> Branding order</a>
 
 <style type="text/css">
 .whatsapp {
@@ -13,7 +13,7 @@
   background-color: #25D366;
   color: #fff;
   font-size: 18px;
-  border-radius: 15px;
+  border-radius: 5px;
   z-index: 999;
   text-decoration: none;
 }

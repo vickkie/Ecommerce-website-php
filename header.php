@@ -178,7 +178,7 @@ session_start();
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="index.php" class="logo">
+								<a href="#" class="logo">
 								
                                     <img src="img/promokings.jpg" alt="Website Header Image">
 									

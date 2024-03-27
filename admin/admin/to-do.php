@@ -15,9 +15,6 @@
     <link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
     <!-- Admin Stye -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/adminlte.css">
-
-
     <script type= "text/javascript" src="../vendor/countries.js">
     </script>
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -193,19 +190,6 @@ if (isset($_POST['submit'])) {
             <div class="col-md-12">
               <h2 class="page-title">Add Task
               </h2>
-
-<div class="x_content">
-  <ul class="nav nav-tabs bar_tabs " id="myTab" role="tablist">
-        <li class="nav-item">
-      <a class="nav-link" id="contact-tab" href="manage-tasks.php">Manage tasks</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" id="profile-tab" href="to-do.php">Add task</a>
-    </li>
-
-   
-  </ul>
-</div>
               <div class="row">
                 <div class="col-md-12">
                   <div class="panel panel-default">
@@ -243,7 +227,7 @@ if (isset($_POST['submit'])) {
   </div>
   <div class="form-group">
   <label class="col-sm-2 control-label">Selected Status</label>
-  <div class="col-sm-3">
+  <div class="col-sm-4">
     <input type="text" name="selected_status" id="selectedStatusField" class="form-control" readonly required>
   </div>
 </div>
@@ -262,7 +246,7 @@ if (isset($_POST['submit'])) {
   </div>
   <div class="form-group">
   <label class="col-sm-2 control-label">Selected Time</label>
-  <div class="col-sm-3">
+  <div class="col-sm-4">
     <input type="text" name="selected_timing" id="selectedTimeField" class="form-control" readonly required>
   </div>
 </div>

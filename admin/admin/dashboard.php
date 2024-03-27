@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 
-if(strlen($_SESSION['alogin']) == 0 || $_SESSION['position'] !== 'admin') {
+if(strlen($_SESSION['alogin']) == 0 || $_SESSION['position'] !== 'superadmin') {
     // Redirect the user to the login page or any other appropriate page
     header('location:errors/access-denied.php');
     exit(); // Stop further execution of the script

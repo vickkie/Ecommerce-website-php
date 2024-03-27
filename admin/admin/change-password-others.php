@@ -34,8 +34,7 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_POST['submit'])) {
-  $password = $_POST['newpassword'];
-  $newpassword = md5($password);
+  $newpassword = $_POST['newpassword'];
 
   $sql = "SELECT * FROM users WHERE id=:id";
   $query = $dbh->prepare($sql);
@@ -121,42 +120,30 @@ if (isset($_POST['submit'])) {
 	<!-- Admin Stye -->
 
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/adminlte.css">
 
-<script src="https://cdn.jsdelivr.net/npm/notiflix@2.7.0/dist/notiflix-aio-2.7.0.min.js"></script>
+<script type="text/javascript">
 
-<script>
-function password() {
-  Notiflix.Notify.Success('Passwords do not match');
+function valid()
+
+{
+
+if(document.chngpwd.newpassword.value!= document.chngpwd.confirmpassword.value)
+
+{
+
+alert("New Password and Confirm Password Field do not match  !!");
+
+document.chngpwd.confirmpassword.focus();
+
+return false;
+
 }
 
-function valid() {
-  if (document.chngpwd.newpassword.value !== document.chngpwd.confirmpassword.value) {
-    password();
-    return false;
-  }
-  return true;
+return true;
+
 }
+
 </script>
-    <script>
-    function togglePasswordVisibility() {
-  var passwordInput = document.getElementById('password-input');
-  var passwordToggleIcon = document.getElementById('password-toggle-icon');
-
-  if (passwordInput.type === 'password') {
-    passwordInput.type = 'text';
-    passwordToggleIcon.classList.remove('fa-eye');
-    passwordToggleIcon.classList.add('fa-eye-slash');
-  } else {
-    passwordInput.type = 'password';
-    passwordToggleIcon.classList.remove('fa-eye-slash');
-    passwordToggleIcon.classList.add('fa-eye');
-  }
-}
-
-  </script>
-
-
 
   <style>
 
@@ -166,7 +153,7 @@ function valid() {
 
     margin: 0 0 20px 0;
 
-    background: crimson;
+    background: #fff;
 
     border-left: 4px solid #dd3d36;
 
@@ -182,7 +169,7 @@ function valid() {
 
     margin: 0 0 20px 0;
 
-    background: skyblue;
+    background: #fff;
 
     border-left: 4px solid #5cb85c;
 
@@ -258,11 +245,9 @@ function valid() {
 
 												<label class="col-sm-4 control-label">New Password</label>
 
-												<div class="col-sm-6">
+												<div class="col-sm-8">
 
 													<input type="password" class="form-control" name="newpassword" id="newpassword" required>
-													<i id="password-toggle-icon" class="toggle-icon fa fa-eye" onclick="togglePasswordVisibility()"></i>
-
 
 												</div>
 
@@ -276,10 +261,9 @@ function valid() {
 
 												<label class="col-sm-4 control-label">Confirm Password</label>
 
-												<div class="col-sm-6">
+												<div class="col-sm-8">
 
-													<input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required><i id="password-toggle-icon" class="toggle-icon fa fa-eye" onclick="togglePasswordVisibility()"></i>
-
+													<input type="password" class="form-control" name="confirmpassword" id="confirmpassword" required>
 
 												</div>
 
@@ -299,7 +283,7 @@ function valid() {
 
 								
 
-													<button class="btn btn-primary" name="submit" type="submit"  onclick="validatePassword()" >Save changes</button>
+													<button class="btn btn-primary" name="submit" type="submit">Save changes</button>
 
 												</div>
 
@@ -362,37 +346,6 @@ function valid() {
 	<script src="js/chartData.js"></script>
 
 	<script src="js/main.js"></script>
-
-
-<script>
-function validatePassword() {
-  var passwordInput = document.getElementById("newpassword");
-  var password = passwordInput.value;
-
-  // Regular expression pattern to check for at least one symbol or number
-  var pattern = /^(?=.*[0-9!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/;
-
-  if (!pattern.test(password)) {
-    alert("Password must contain at least one symbol or number.");
-    event.preventDefault(); // Prevent form submission if validation fails
-  }
-}
-</script>
-	<script>
-    ion.iconsLoaded.then(function () {
-      var passwordToggleIcon = document.getElementById("password-toggle-icon");
-      ion.add(passwordToggleIcon);
-    });
-  </script>
-     <script type="text/javascript">
-      $(document).ready(function () {
-        setTimeout(function() {
-          $('.succWrap').slideUp("slow");
-        }
-                   , 3000);
-      }
-                       );
-    </script>
 
 
 

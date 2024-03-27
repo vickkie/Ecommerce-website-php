@@ -14,17 +14,6 @@ if (empty($_SESSION['alogin']) || !in_array($_SESSION['position'], $allowedPosit
 }
 
 
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
-
 if(strlen($_SESSION['alogin'])==0)
 {	
 header('location:index.php');
@@ -125,19 +114,6 @@ $msg="Supplier Approved Sucessfully";
             <div class="col-md-12">
               <h2 class="page-title">Unapproved Suppliers
               </h2>
-   <div class="x_content">
-  <ul class="nav nav-tabs bar_tabs " id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link " id="profile-tab" href="manage-supplier.php">Approved</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" id="contact-tab" href="new-supplier.php">Unapproved</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="contact-tab" href="add-supplier.php">Register</a>
-    </li>
-  </ul>
-</div>
               <!-- Zero Configuration Table -->
               <div class="panel panel-default">
                 <div class="panel-heading">List Supplier

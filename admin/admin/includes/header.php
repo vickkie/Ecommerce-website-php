@@ -1,18 +1,17 @@
-<?php
-session_start(); 
-include('includes/config.php');
-?>
+
 
 <div class="brand clearfix">
 
-<h4 class="pull-left text-white" style="padding-left: 20px;margin:20px 0px 0px 20px"><i class="fa fa-shopping-cart"></i>&nbsp<?php echo COMPANY_NAME;?></h4>
+<h4 class="pull-left text-white" style="padding-left: 20px;margin:20px 0px 0px 20px"><i class="fa fa-shopping-cart"></i>&nbsp;PROMOKINGS LIMITED</h4>
 
-		<span class="menu-btn"><i class="fa fa-bars"></i></span>
+		<span class="menus-btn"><i class="fa fa-bars"></i></span>
 
 		<ul class="ts-profile-nav">
 
 			
 <?php
+session_start(); 
+include('includes/config.php');
 if (isset($_SESSION['alogin'])) {
   $username = $_SESSION['alogin'];
   $profile_picture = $_SESSION['profilepicture'] ;
@@ -44,6 +43,6 @@ if (isset($_SESSION['alogin'])) {
 			</li>
 
 		</ul>
-		 
+
 	</div>
 ?>

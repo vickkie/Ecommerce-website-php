@@ -34,17 +34,6 @@ if (empty($_SESSION['alogin']) || !in_array($_SESSION['position'], $allowedPosit
     exit(); // Stop further execution of the script
 }
 
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
-
 if(strlen($_SESSION['alogin'])==0)
 { 
 header('location:index.php');
@@ -61,13 +50,8 @@ $mobile = $_POST['mobile'];
 $email = $_POST['email'];
 $location = $_POST['location'];
 $username = $_POST['username'];
-$pass = $_POST['password'];
-$password= md5($pass);
+$password = $_POST['password'];
 $status ='Unapproved';
-$message='Welcome to our company';
-$sender='admin';
-$receiver=$username;
-$dates = date('Y:m:d H:i:s');
 
 // Picture coding
 $picture_name = $_FILES['image']['name'];
@@ -126,19 +110,7 @@ $m = $pic_name;
         echo '<script>exists();</script>';
     } else {
 
-
-//welcome 
-$sql2="INSERT INTO message(cmsg,sender_name,receiver_name,dates) VALUES(:message,:sender,:receiver,:dates)";
-$query2 = $dbh->prepare($sql2);
-$query2->bindParam(':message',$message,PDO::PARAM_STR);
-$query2->bindParam(':sender',$sender,PDO::PARAM_STR);
-$query2->bindParam(':receiver',$receiver,PDO::PARAM_STR);
-$query2->bindParam(':dates',$dates,PDO::PARAM_STR);
-$query2->execute();
-
-
-//save details
-$sql="INSERT INTO users(first_name,last_name,address,mobile,username,password,status,profpic,email) VALUES(:firstname,:lastname,:address,:mobile,:username,:password,:status,:m ,:email)";
+$sql="INSERT INTO users(first_name,last_name,address,mobile,username,password,status,profpic) VALUES(:firstname,:lastname,:address,:mobile,:username,:password,:status,:m )";
 $query = $dbh->prepare($sql);
 $query->bindParam(':firstname',$firstname,PDO::PARAM_STR);
 $query->bindParam(':lastname',$lastname,PDO::PARAM_STR);
@@ -148,7 +120,6 @@ $query->bindParam(':username',$username,PDO::PARAM_STR);
 $query->bindParam(':password',$password,PDO::PARAM_STR);
 $query->bindParam(':status',$status,PDO::PARAM_STR);
 $query->bindParam(':m',$m,PDO::PARAM_STR);
-$query->bindParam(':email',$email,PDO::PARAM_STR);
 
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
@@ -202,9 +173,9 @@ echo "<script>error();</script>";
 
 
 <?php } ?>
- <?php include('request/header.php');?>
+ <?php include('includes/header.php');?>
     <div class="ts-main-content">
-      <?php include('request/leftbar.php');?>
+      <?php include('includes/leftbar.php');?>
       <div class="content-wrapper" style="margin-left:10px">
         <div class="container-fluid">
 
@@ -217,7 +188,7 @@ echo "<script>error();</script>";
                 <i class="fa fa-arrow-circle-left">Back</i>
                 </a> &nbsp&nbsp&nbsp 
 
-               Registration Form
+               Registration Form <?php echo $position ?>
               </h2>
               <div class="row" style="margin-left: 20px;">
                 <div class="col-md-12">
@@ -262,13 +233,11 @@ echo "<script>error();</script>";
       
     
 
-     <div class="form-group">
-  <label class="col-sm-6 control-label">Username <span style="color:red">*</span></label>
-  <div class="col-sm-6">
-    <span id="username-error" style="color:red;display:none;">Username already taken</span>
-    <input type="text" name="username" id="username" class="form-control" required>
-    
-  </div>
+       <div class="form-group">
+      <label class="col-sm-6 control-label">User name <span style="color:red">*</span></label>
+      <div class="col-sm-6">
+        <input type="text" name="username" class="form-control" required>
+      </div>
 
   <div class="form-group">
    <label class="col-sm-6 control-label">Enter password <span style="color:red">*</span></label>
@@ -296,7 +265,7 @@ echo "<script>error();</script>";
     <div class="form-group">
       <div class="col-sm-8 col-sm-offset-2">
         <button class="btn btn-default" type="reset">Cancel</button>
-        <button class="btn btn-primary" name="submit" type="submit" id="submit-button">Register</button>
+        <button class="btn btn-primary" name="submit" type="submit">Register</button>
       </div>
     </div>
   </form>
@@ -341,28 +310,4 @@ echo "<script>error();</script>";
 
   password.addEventListener("input", checkPasswordMatch);
   password2.addEventListener("input", checkPasswordMatch);
-</script>
- <script>
-$(document).ready(function() {
-  var submitButton = $('#submit-button'); // Assuming your submit button has the id "submit-button"
-
-  $('#username').on('input', function() {
-    var username = $(this).val();
-    $.ajax({
-      url: 'check-username.php',
-      method: 'POST',
-      data: { username: username },
-      success: function(response) {
-        if (response === 'exists') {
-          $('#username-error').show();
-          submitButton.attr('disabled', true); // Disable the submit button
-        } else {
-          $('#username-error').hide();
-          submitButton.attr('disabled', false); // Enable the submit button
-        }
-      }
-    });
-  });
-});
-
 </script>

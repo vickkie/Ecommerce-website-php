@@ -40,7 +40,7 @@ function trackStatusChange($order_id, $previous_status, $new_status) {
 
 if(isset($_REQUEST['cancelid']))
 {
-$eid=($_GET['cancelid']);
+$eid=intval($_GET['cancelid']);
 $status='Cancelled';
 $sql = "UPDATE orders_info SET status=:status WHERE order_id=:eid";
 $query = $dbh->prepare($sql);

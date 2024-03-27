@@ -12,18 +12,6 @@ if (empty($_SESSION['alogin']) || !in_array($_SESSION['position'], $allowedPosit
     exit(); // Stop further execution of the script
 }
 
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
-
-
 if(strlen($_SESSION['alogin'])==0)
 {	
 header('location:index.php');
@@ -168,14 +156,14 @@ else if($msg){?>
                     </thead>
                     <tbody>
                       <?php $sql = "SELECT * from  customers ";
-                   $query = $dbh -> prepare($sql);
-                   $query->execute();
-                    $results=$query->fetchAll(PDO::FETCH_OBJ);
-                        $cnt=1;
-                      if($query->rowCount() > 0)
-                       {
-                        foreach($results as $result)
-                       {				?>	
+$query = $dbh -> prepare($sql);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{				?>	
                       <tr>
                         <td>
                           <?php echo htmlentities($cnt);?>

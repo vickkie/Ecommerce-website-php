@@ -4,14 +4,13 @@ error_reporting(E_ERROR | E_WARNING);
 
 
 // COMPANY INFORMATION
-define('COMPANY_LOGO', '<img src=img/logo/promokingss.png>');
+define('COMPANY_LOGO', '<img src=itemimg/promokings.jpg>');
 define('COMPANY_LOGO_WIDTH', '300');
 define('COMPANY_LOGO_HEIGHT', '90');
 
-define('COMPANY_TOP_LOGO', 'img/logo/promoking.jpg');
-define('COMPANY_TOP_LOGO_WIDTH', '300');
-define('COMPANY_TOP_LOGO_HEIGHT', '90');
-
+define('COMPANY_LOGOS', '<img src=itemimg/promokings.jpg>');
+define('COMPANY_LOGOS_WIDTH', '100');
+define('COMPANY_LOGOS_HEIGHT', '60');
 define('COMPANY_NAME','PROMOKINGS');
 define('COMPANY_ADDRESS_1','Meru, makutano');
 define('COMPANY_ADDRESS_2','Nairobi, 23 Moi avenue');
@@ -19,9 +18,6 @@ define('COMPANY_ADDRESS_3','Parklands');
 define('COMPANY_COUNTY','Nairobi');
 define('COMPANY_POSTCODE','10100');
 define('COMPANY_PHONENUMBER','Phone No: +254758015158'); // phone number
-define('COMPANY_THANKS','Thank you For shopping with us. We Value you'); // Thanks
-define('COMPANY_SLOGAN',' Transforming expectations into tangible delight'); // slogan
-define('COMPANY_COUNTRY','Kenya'); // juridiction🤭
 
 define('COMPANY_NUMBER','Company No: 699400000'); // Company registration number
 define('COMPANY_VAT', 'Company VAT: 690000007'); // Company TAX/VAT number
@@ -49,20 +45,11 @@ define('PAYMENT_DETAILS', 'promoking<br>Sort Code: 12-00-00<br>Account Number: 6
 define('FOOTER_NOTE', 'Promokings');
 define('PAYMENT_TYPE', 'PAY ON DELIVERY'); // This is the type of payment
 
-
-//designer
-define('DESIGNER', 'uzitrake'); // This is the type of payment
-define('DESIGNER_EMAIL', 'vickkietrake@gmail.com'); // This is the type of payment
-
-
 // DB credentials.
 define('DB_HOST','localhost');
 define('DB_USER','root');
 define('DB_PASS','');
 define('DB_NAME','professional');
-
-
-
 
 
 

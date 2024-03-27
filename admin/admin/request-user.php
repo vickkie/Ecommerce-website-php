@@ -70,7 +70,6 @@ $msg="Supplier Approved Sucessfully";
     <link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
     <!-- Admin Stye -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/uzi.css">
     <style>
       .errorWrap {
         padding: 10px;
@@ -88,10 +87,7 @@ $msg="Supplier Approved Sucessfully";
         -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
         box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
       }
-  
     </style>
-
-
   </head>
   <body>
     <?php include('includes/header.php');?>
@@ -102,23 +98,12 @@ $msg="Supplier Approved Sucessfully";
           <div class="row">
             <div class="col-md-12">
               <h2 class="page-title" >
-              Requested New Register  
+              Requested New Staff  &nbsp&nbsp&nbsp&nbsp&nbsp
+               <a href="request-approved.php" style="margin-right:10px;">
+                <i class="fa fa-clock-o" >Manage</i>
+                </a>
 
                </h2>
-<div class="x_content">
-  <ul class="nav nav-tabs bar_tabs " id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="profile-tab" href="request-user.php">Unapproved</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="contact-tab" href="request-approved.php">Approved</a>
-    </li>
-  </ul>
-</div>
-
-
-
-
               <!-- Zero Configuration Table -->
               <div class="panel panel-default">
                 <div class="panel-heading">List Staff
@@ -139,7 +124,9 @@ $msg="Supplier Approved Sucessfully";
                       <tr>
                         <th>#
                         </th>
-                        <th>Full Name
+                        <th>First Name
+                        </th>
+                        <th>Last Name
                         </th>
                         <th>National ID
                         </th>
@@ -165,9 +152,12 @@ $msg="Supplier Approved Sucessfully";
                         <td>
                           <?php echo htmlentities($cnt);?>
                         </td>
-                    
                         <td>
-                          <?php echo htmlentities($result->fullname);?>
+                          <?php echo htmlentities($result->firstname);?> 
+                          <?php // echo htmlentities($result->lname);?>
+                        </td>
+                        <td>
+                          <?php echo htmlentities($result->lastname);?>
                         </td>
                         <td>
                           <?php echo htmlentities($result->id_no);?>
@@ -253,15 +243,6 @@ a:hover i {
           $('.succWrap').slideUp("slow");
         }
                    , 3000);
-      }
-                       );
-    </script>
-        <script type="text/javascript">
-      $(document).ready(function () {
-        setTimeout(function() {
-          $('.errorWrap').slideUp("slow");
-        }
-                   , 5000);
       }
                        );
     </script>

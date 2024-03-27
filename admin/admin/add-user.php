@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(E_ALL);
+error_reporting(0);
 include('includes/config.php');
 
 $allowedPositions = array('superadmin', 'admin', 'manager');
@@ -12,17 +12,6 @@ if (empty($_SESSION['alogin']) || !in_array($_SESSION['position'], $allowedPosit
     exit(); // Stop further execution of the script
 }
 
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
-
 if(strlen($_SESSION['alogin'])==0)
 {	
 header('location:index.php');
@@ -31,19 +20,12 @@ else{
 if(isset($_POST['submit']))
 {
 $name = $_POST['name'];
-$lastname = $_POST['lastname'];
 $address = $_POST['address'];
-$email = $_POST['email'];
 $mobile = $_POST['mobile'];
 $position = $_POST['position'];
 $username = $_POST['username'];
-$pass = $_POST['password'];
-$password =md5($pass);
+$password = $_POST['password'];
 $status ='Unapproved';
-$message='Welcome to our company';
-$sender='admin';
-$receiver=$username;
-$dates = date('Y:m:d H:i:s');
 
 // Picture coding
 $picture_name = $_FILES['image']['name'];
@@ -61,8 +43,8 @@ if ($picture_type == "image/jpeg" || $picture_type == "image/jpg" || $picture_ty
 
     // Resize the image
     list($width, $height) = getimagesize($upload_path);
-    $new_width = 600;
-    $new_height = 600;
+    $new_width = 300;
+    $new_height = 300;
     $resized_image = imagecreatetruecolor($new_width, $new_height);
 
     if ($picture_type == "image/jpeg" || $picture_type == "image/jpg") {
@@ -76,7 +58,7 @@ if ($picture_type == "image/jpeg" || $picture_type == "image/jpg" || $picture_ty
     imagecopyresampled($resized_image, $source_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
     // Save the resized image
-    imagejpeg($resized_image, $upload_path, 100);
+    imagejpeg($resized_image, $upload_path, 90);
 
     // Free up memory
     imagedestroy($source_image);
@@ -86,36 +68,11 @@ if ($picture_type == "image/jpeg" || $picture_type == "image/jpg" || $picture_ty
 
 $m = $pic_name;
 
-$sql1= "SELECT username,mobile,last_name FROM users WHERE username=:username AND last_name = :lastname";
-$query1= $dbh->prepare($sql1);
-$query1->bindParam(':username',$username,PDO::PARAM_STR);
-$query1->bindParam(':lastname',$lastname,PDO::PARAM_STR);
-$query1->execute();
-$results = $query1->fetch();
 
-if ($results) {
-  $error="User data already exists";
-}
-else{
-
-  //welcome user
-
-$sql2="INSERT INTO message(cmsg,sender_name,receiver_name,dates) VALUES(:message,:sender,:receiver,:dates)";
-$query2 = $dbh->prepare($sql2);
-$query2->bindParam(':message',$message,PDO::PARAM_STR);
-$query2->bindParam(':sender',$sender,PDO::PARAM_STR);
-$query2->bindParam(':receiver',$receiver,PDO::PARAM_STR);
-$query2->bindParam(':dates',$dates,PDO::PARAM_STR);
-$query2->execute();
-
-
-//save details
-$sql="INSERT INTO users(first_name,last_name,address,email,mobile,position,username,password,status,profpic) VALUES(:name,:lastname,:address,:email,:mobile,:position,:username,:password,:status,:m )";
+$sql="INSERT INTO users(name,address,mobile,position,username,password,status,profpic) VALUES(:name,:address,:mobile,:position,:username,:password,:status,:m )";
 $query = $dbh->prepare($sql);
 $query->bindParam(':name',$name,PDO::PARAM_STR);
-$query->bindParam(':lastname',$lastname,PDO::PARAM_STR);
 $query->bindParam(':address',$address,PDO::PARAM_STR);
-$query->bindParam(':email',$email,PDO::PARAM_STR);
 $query->bindParam(':mobile',$mobile,PDO::PARAM_STR);
 $query->bindParam(':position',$position,PDO::PARAM_STR);
 $query->bindParam(':username',$username,PDO::PARAM_STR);
@@ -124,15 +81,14 @@ $query->bindParam(':status',$status,PDO::PARAM_STR);
 $query->bindParam(':m',$m,PDO::PARAM_STR);
 
 $query->execute();
-$rowCount = $query->rowCount();
-if($rowCount>0)
+$lastInsertId = $dbh->lastInsertId();
+if($lastInsertId)
 {
 $msg="User added successfully";
 }
 else 
 {
 $error="Something went wrong. Please try again";
-}
 }
 }
 ?>
@@ -152,7 +108,7 @@ $error="Something went wrong. Please try again";
     <!-- Font awesome -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Sandstone Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Bootstrap Datatables -->
     <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
     <!-- Bootstrap social button library -->
@@ -167,7 +123,6 @@ $error="Something went wrong. Please try again";
     <link rel="stylesheet" href="css/style.css">
     <script type= "text/javascript" src="../vendor/countries.js">
     </script>
-
     <style>
       .errorWrap {
         padding: 10px;
@@ -197,31 +152,16 @@ $error="Something went wrong. Please try again";
 </html>
 <?php } ?>
  <?php include('includes/header.php');?>
-    <div class="ts-main-content" >
+    <div class="ts-main-content">
       <?php include('includes/leftbar.php');?>
       <div class="content-wrapper">
         <div class="container-fluid">
           <div class="row">
-
             <div class="col-md-12">
               <h2 class="page-title">Add User
               </h2>
-                <div class="x_content">
-  <ul class="nav nav-tabs bar_tabs " id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link" id="profile-tab" href="manage-user.php">Approved</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="contact-tab" href="new-user.php">Unapproved</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" id="contact-tab" href="add-user.php">Register</a>
-    </li>
-  </ul>
-</div>
               <div class="row">
                 <div class="col-md-12">
-
                   <div class="panel panel-default">
                     <div class="panel-heading">User Info
                     </div>
@@ -234,42 +174,25 @@ else if($msg){?>
                     <div class="succWrap">
                       <?php echo htmlentities($msg); ?> 
                     </div>
-                    <div class="errorWrap">
-                      <?php echo "Username taken:"; ?> 
-                    </div>
                     <?php }?>
                <div class="panel-body">
   <form method="post" class="form-horizontal" enctype="multipart/form-data" >
     <div class="form-group">
-      <label class="col-sm-2 control-label">First Name <span style="color:red">*</span></label>
+      <label class="col-sm-2 control-label">Full Name <span style="color:red">*</span></label>
       <div class="col-sm-4">
         <input type="text" name="name" class="form-control" maxlength="30" required>
       </div>
-
-       <div class="form-group " style="">
-      <label class="col-sm-2 control-label">Last Name <span style="color:red">*</span></label>
-      <div class="col-sm-4">
-        <input type="text" name="lastname" class="form-control" maxlength="30" required>
-      </div>
-       </div>
     
     <div class="form-group">
       <label class="col-sm-2 control-label">Address <span style="color:red">*</span></label>
       <div class="col-sm-4">
         <input type="text" name="address" class="form-control" required>
       </div>
-   
+    </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">Mobile <span style="color:red">*</span></label>
       <div class="col-sm-4">
         <input type="text" name="mobile" class="form-control" required>
-      </div>
-       </div>
-
-       <div class="form-group">
-      <label class="col-sm-2 control-label">Email<span style="color:red">*</span></label>
-      <div class="col-sm-4">
-        <input type="text" name="email" class="form-control" required>
       </div>
   
     <label class="col-sm-2 control-label">Position
@@ -307,18 +230,20 @@ else if($msg){?>
                          
                         </div>
                       </div>
-
-
-<div class="form-group">
-  <label class="col-sm-2 control-label">Username <span style="color:red">*</span></label>
-  <div class="col-sm-4">
-    <span id="username-error" style="color:red;display:none;">Username already taken</span>
-    <input type="text" name="username" id="username" class="form-control" required>
-    
-  </div>
-</div>
-
-
+                        
+    <div class="form-group">
+      <label class="col-sm-2 control-label">User name <span style="color:red">*</span></label>
+      <div class="col-sm-4">
+        <input type="text" name="username" class="form-control" required>
+      </div>
+      <label class="col-sm-2 control-label">Picture
+                            <span style="color:red">*
+                            </span>
+                          </label>
+                          <div class="col-sm-4">
+                            <input type="file" name="image" class="form-control" value="Select Image File">
+                          </div>
+    </div>
     <div class="form-group">
   <label class="col-sm-2 control-label">Enter password <span style="color:red">*</span></label>
   <div class="col-sm-4">
@@ -337,7 +262,7 @@ else if($msg){?>
     <div class="form-group">
       <div class="col-sm-8 col-sm-offset-2">
         <button class="btn btn-default" type="reset">Cancel</button>
-        <button class="btn btn-primary" name="submit" type="submit" id="submit-button">Save Changes</button>
+        <button class="btn btn-primary" name="submit" type="submit">Save Changes</button>
       </div>
     </div>
   </form>
@@ -384,75 +309,3 @@ else if($msg){?>
   password.addEventListener("input", checkPasswordMatch);
   password2.addEventListener("input", checkPasswordMatch);
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script type="text/javascript">
-      $(document).ready(function () {
-        setTimeout(function() {
-          $('.succWrap').slideUp("slow");
-        }
-         , 3000);
-      }
-      );
-    </script>
-        <script type="text/javascript">
-      $(document).ready(function () {
-        setTimeout(function() {
-          $('.errorWrap').slideUp("slow");
-        }
-                   , 3000);
-      }
-                       );
-    </script>
-       <!-- <script>
-$(document).ready(function() {
-  $('#username').on('input', function() {
-    var username = $(this).val();
-    $.ajax({
-      url: 'check-username.php',
-      method: 'POST',
-      data: { username: username },
-      success: function(response) {
-        if (response == 'exists') {
-          $('#username-error').show();
-        } else {
-          $('#username-error').hide();
-        }
-      }
-    });
-  });
-});
-</script>
--->
-<script>
-$(document).ready(function() {
-  var submitButton = $('#submit-button'); // Assuming your submit button has the id "submit-button"
-
-  $('#username').on('input', function() {
-    var username = $(this).val();
-    $.ajax({
-      url: 'check-username.php',
-      method: 'POST',
-      data: { username: username },
-      success: function(response) {
-        if (response === 'exists') {
-          $('#username-error').show();
-          submitButton.attr('disabled', true); // Disable the submit button
-        } else {
-          $('#username-error').hide();
-          submitButton.attr('disabled', false); // Enable the submit button
-        }
-      }
-    });
-  });
-});
-
-</script>
-
-
-
-
-
-
-
-

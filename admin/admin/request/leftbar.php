@@ -13,7 +13,7 @@ if ($position == "Approve")
     echo'
 <nav class="ts-sidebar">
 <ul class="ts-sidebar-menu">
-    <li class="ts-label">Promokings || New user </li>
+    <li class="ts-label">Promokings </li>
     <li>
         <a href="dashboard-newbie.php">
             <i class="fa fa-dashboard"></i> Dashboard

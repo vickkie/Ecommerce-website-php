@@ -14,17 +14,6 @@ if (empty($_SESSION['alogin']) || !in_array($_SESSION['position'], $allowedPosit
     exit(); // Stop further execution of the script
 }
 
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
-
 if(strlen($_SESSION['alogin'])==0)
 {	
 header('location:index.php');
@@ -32,7 +21,7 @@ header('location:index.php');
 else{
 if(isset($_REQUEST['confirmid']))
 {
-$eid=($_GET['confirmid']);
+$eid=intval($_GET['confirmid']);
 $status='Approved';
 $sql = "UPDATE orders_info SET status=:status WHERE order_id=:eid";
 $query = $dbh->prepare($sql);
@@ -47,7 +36,7 @@ else
 }
 if(isset($_REQUEST['prepareid']))
 {
-$eid=($_GET['prepareid']);
+$eid=intval($_GET['prepareid']);
 $status='Processing';
 $sql = "UPDATE orders_info SET status=:status WHERE order_id=:eid";
 $query = $dbh->prepare($sql);
@@ -62,7 +51,7 @@ else
 }
 if(isset($_REQUEST['wayid']))
 {
-$eid=($_GET['wayid']);
+$eid=intval($_GET['wayid']);
 $status='Delivering';
 $sql = "UPDATE orders_info SET status=:status WHERE order_id=:eid";
 $query = $dbh->prepare($sql);
@@ -73,7 +62,7 @@ $msg="Status Updated Sucessfully";
 }
 if(isset($_REQUEST['deliveredid']))
 {
-$eid=($_GET['deliveredid']);
+$eid=intval($_GET['deliveredid']);
 $status='Delivered';
 $sql = "UPDATE orders_info SET status=:status WHERE order_id=:eid";
 $query = $dbh->prepare($sql);
@@ -88,7 +77,7 @@ else
 }
 if(isset($_REQUEST['cancelid']))
 {
-$eid=($_GET['cancelid']);
+$eid=intval($_GET['cancelid']);
 $status='Cancelled';
 $sql = "UPDATE orders_info SET status=:status WHERE order_id=:eid";
 $query = $dbh->prepare($sql);
@@ -142,8 +131,6 @@ if (isset($_GET['error'])) {
     <link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
     <!-- Admin Stye -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/uzi.css">
-
     <style>
       .errorWrap {
         padding: 10px;
@@ -175,17 +162,6 @@ if (isset($_GET['error'])) {
                 <a href="manage-orders.php">Manage Invoices
                 </a>
               </h2>
-              <div class="x_content">
-  <ul class="nav nav-tabs bar_tabs " id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="profile-tab" href="manage-invoices.php">Invoices</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="contact-tab" href="manage-orders.php">Orders</a>
-    </li>
-  </ul>
-</div>
-
               <!-- Zero Configuration Table -->
               <div class="panel panel-default">
                 <div class="panel-heading">Invoices

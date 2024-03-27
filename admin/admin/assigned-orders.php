@@ -13,17 +13,6 @@ if (empty($_SESSION['alogin']) || !in_array($_SESSION['position'], $allowedPosit
     exit(); // Stop further execution of the script
 }
 
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1500)) {
-    // Last activity was more than 30 minutes ago
-    session_unset();     // Unset all session variables
-    session_destroy();   // Destroy the session
-    header('location: index.php'); // Redirect the user to the login page
-    exit(); // Stop further execution of the script
-}
-
-// Update last activity time stamp
-$_SESSION['LAST_ACTIVITY'] = time();
-
 
 if(strlen($_SESSION['alogin'])==0)
 {	
@@ -73,7 +62,7 @@ function trackStatusChange($order_id, $previous_status, $new_status) {
 
 if(isset($_REQUEST['deliveredid']))
 {
-$eid=($_GET['deliveredid']);
+$eid=intval($_GET['deliveredid']);
 $status='Delivered';
 $sql = "UPDATE orders_info SET status=:status WHERE order_id=:eid";
 $query = $dbh->prepare($sql);
@@ -93,7 +82,7 @@ else
 }
 if(isset($_REQUEST['cancelid']))
 {
-$eid=($_GET['cancelid']);
+$eid=intval($_GET['cancelid']);
 $status='Cancelled';
 $sql = "UPDATE orders_info SET status=:status WHERE order_id=:eid";
 $query = $dbh->prepare($sql);
@@ -208,15 +197,13 @@ if (isset($_GET['error'])) {
                         </th>
                         <th>Mobile Number
                         </th>
-                         <th>Payment
-                        </th>
                         <th>Area
                         </th>
                         <th>Address
                         </th>
                         <th>Status
                         </th>
-                        <th>Download Invoice
+                        <th>Download
                         </th>
                         <th>Action
                         </th>
@@ -230,7 +217,7 @@ if (isset($_SESSION['alogin'])) {
    $drivername = $_SESSION['alogin'];
 //i was testing 😂🤣
 
- //$drivername = 'follow me on ig u.z.i.__';
+ //$drivername = 'joy';
 
     echo "<span style='color: blue;'>Orders Assigned To: " . htmlentities(strtoupper($drivername)) . "</span>";
 }
@@ -263,24 +250,7 @@ if (isset($_SESSION['alogin'])) {
                         </td>
                         <td>
                           <?php echo htmlentities($result->contact);?>
-
                         </td>
-                                          <td>
-  <?php
-  $payment = htmlentities($result->payment);
-  $paymentClass = '';
-
-
-if ($payment == 'Paid') {
-    $paymentClass = 'text-success';
-  } elseif ($payment == 'Unpaid') {
-    $paymentClass = 'text-danger';
-  }
- 
-
-  echo '<b class="' . $paymentClass . '">' . $payment . '</b>';
-  ?>
-</td>
                         <td>
                           <?php echo htmlentities($result->city);?>
                         </td>
@@ -306,17 +276,13 @@ if ($status == 'Delivered') {
   ?>
 </td>
 <td>
-    <a href="save-order.php?order_id=<?php echo $result->order_id; ?>" onclick="return confirm('Do you want to download this order?');">
+    <a href="download-order.php?order_id=<?php echo $result->order_id; ?>" onclick="return confirm('Do you want to download this order?');">
         <i class="fa fa-download" style="color: orangered;"></i>
     </a>
 </td>
 <td>
     <a href="assigned-orders.php?deliveredid=<?php echo $result->order_id; ?>" onclick="return confirm('Confirm Delivery?');">
         <i class="fa fa-check" style="color: green;"></i>
-    </a>
-    <br>
-    <a href="assigned-orders.php?cancelid=<?php echo $result->order_id; ?>" onclick="return confirm('Cancel Order?');">
-        <i class="fa fa-times" style="color: red;"></i>
     </a>
 </td>
 
